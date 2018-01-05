@@ -1,0 +1,13 @@
+# Site settings
+title: code base
+email: tyrese-yang@163.com
+description: > # this means to ignore newlines until "baseurl:"
+  Write an awesome description for your new site here. You can edit this
+  line in _config.yml.
+baseurl: "/" # the subpath of your site, e.g. /blog/
+url: "http://tyrese-yang.github.io" # the base hostname & protocol for your site
+twitter_username: tyrese
+github_username:  tyrese-yang
+
+# Build settings
+markdown: kramdown
