@@ -1,13 +1,29 @@
-# Site settings
-title: code base
-email: tyrese-yang@163.com
-description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml.
-baseurl: "/" # the subpath of your site, e.g. /blog/
-url: "http://tyrese-yang.github.io" # the base hostname & protocol for your site
-twitter_username: tyrese
-github_username:  tyrese-yang
+# Site Build Settings
+
+# Jekyll-paginate-v2 configuration
+#  pagination:
+#   enabled: true
+#   per_page: 5
+#   permalink: '/page/:num/'
+#   title: ':title - page :num of :max'
+#   limit: 0
+#   sort_field: 'date'
+#   sort_reverse: true
+
+# jekyll-paginate configuration
+paginate:            5
 
 # Build settings
-markdown: kramdown
+markdown:            kramdown
+highlighter:         rouge
+permalink:           none
+plugins:             [jekyll-paginate, jekyll-sitemap, jekyll-feed, jekyll-seo-tag]
+
+# Customise atom feed settings (this is where Jekyll-Feed gets configuration information)
+title:		           'Tyrese'
+description:	       '好奇心驱动学习'
+author:              'tyrese yang'
+
+# RSS 2.0 can be used instead of Atom by uncommenting following two lines
+#feed:
+#  path: rss-feed.xml
