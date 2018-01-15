@@ -98,12 +98,79 @@ HTTP Dynamic Streaming，是Adobe公司设计的协议，分为On-demand模式(�
 
 HDS直播流
 
-直播是边录制边播放的过程，所以，数据流在直播过程中需要源源不断地从录制端传输到播放器。HTTP协议指定了我们对资源的请求规则和响应规则，而HDS协议则是在http协议的基础上规定了数据的传输行为以及传输内容的封装格式。以下是HDS协议的传输行为：
-首先，播放器需要知道一个地址，这个地址代表某一个直播内容的地址，比如某一个电视频道的网络直播地址。这个地址其实是一个f4m文件(Flash Media Manifest)，f4m文件中记录着多个视频流的地址，这些... <a href="/specification/hds.html">Read more</a>
+
+
+① 请求f4m文件，只在播放开始请求一次
+② 在f4m中找到abst url，请求abst文件。abst相当于切片列表，需要在直播过程中进行更新，因此播放器需要持续请求abst文件
+③ 根据abst中的序号，请求fragment，播放fragment
+
+直播是边录制边播放的过程，所以，数据流在直播过程中需要源源不断地从录制端传输到播放器。HTTP协议指定了我们对资源的请求规则和响应规则，而HDS协议则是在http协议的基础上规定了数据的传输行为以及传输... <a href="/specification/hds.html">Read more</a>
     <span class="post-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15 Jan 2018 - <i class="fa fa-clock-o" aria-hidden="true"></i> 
   
   
     less than 1 minute read
+  
+
+
+
+</span>
+  </p>
+</div>
+
+<div class="posts">
+  <h1>
+    <a href="/specification/flv.html">FLV协议</a>
+  </h1>
+  
+  <p>
+    FLV格式
+FLV格式为heder+body
+
+FLV文件中数据存储方式为大端（big-endian）模式
+
+时间戳单位为毫秒
+Header
+
+
+  
+    
+      字段
+      类型
+      描述
+    
+  
+  
+    
+      标记
+      UI8
+      ‘F’(0x46)
+    
+    
+      标记
+      UI8
+      ‘L’(0x4c)
+    
+    
+      标记
+      UI8
+      ‘V’(0x56)
+    
+    
+      版本
+      UI8
+      flv版本
+    
+    
+      保留
+      UB[5]
+      0
+    
+    
+      Au... <a href="/specification/flv.html">Read more</a>
+    <span class="post-date"><i class="fa fa-calendar" aria-hidden="true"></i> 07 Jan 2018 - <i class="fa fa-clock-o" aria-hidden="true"></i> 
+  
+  
+    1 minute read
   
 
 
