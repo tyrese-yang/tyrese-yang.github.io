@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-01-15T17:23:29+08:00</updated><id>http://localhost:4000/</id><title type="html">Tyrese</title><subtitle>好奇心驱动学习</subtitle><author><name>tyrese yang</name></author><entry><title type="html">HDS协议介绍</title><link href="http://localhost:4000/specification/hds.html" rel="alternate" type="text/html" title="HDS协议介绍" /><published>2018-01-15T00:00:00+08:00</published><updated>2018-01-15T00:00:00+08:00</updated><id>http://localhost:4000/specification/hds</id><content type="html" xml:base="http://localhost:4000/specification/hds.html">&lt;h2 id=&quot;hds简介&quot;&gt;HDS简介&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-01-15T20:08:33+08:00</updated><id>http://localhost:4000/</id><title type="html">Tyrese</title><subtitle>好奇心驱动学习</subtitle><author><name>tyrese yang</name></author><entry><title type="html">HDS协议介绍</title><link href="http://localhost:4000/specification/hds.html" rel="alternate" type="text/html" title="HDS协议介绍" /><published>2018-01-15T00:00:00+08:00</published><updated>2018-01-15T00:00:00+08:00</updated><id>http://localhost:4000/specification/hds</id><content type="html" xml:base="http://localhost:4000/specification/hds.html">&lt;h2 id=&quot;hds简介&quot;&gt;HDS简介&lt;/h2&gt;
 &lt;p&gt;HTTP Dynamic Streaming，是Adobe公司设计的协议，分为On-demand模式(点播）和live模式（直播）。Live模式与苹果公司HLS协议的直播类似，都是将直播流切片进行传输。&lt;/p&gt;
 
 &lt;h2 id=&quot;hds直播流&quot;&gt;HDS直播流&lt;/h2&gt;
@@ -18,11 +18,38 @@ HDS播放视频流是通过短连接的方式，那么是如何实现源源不�
 &lt;p&gt;每个视频切片（fragment）都有一个独一无二的url，url的构造如下：&lt;br /&gt;
 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://&amp;lt;ServerBaseUrl&amp;gt;/&amp;lt;MovieIdentifier&amp;gt;&amp;lt;QualitySegmentUrlModifier&amp;gt;Seg&amp;lt;SegmentNumber&amp;gt;-Frag&amp;lt;FragmentNumber&amp;gt;&lt;/code&gt;&lt;br /&gt;
 如果&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;ServerEntryCount&amp;gt;&lt;/code&gt;为0，&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;ServerBaseUrl&amp;gt;&lt;/code&gt;和末尾的斜杆应该被省略。
-如果&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;QualityEntryCount&amp;gt;&lt;/code&gt;为0，&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;QualitySegmentUrlModifier&amp;gt;&lt;/code&gt;应该被省略。
+如果&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;QualityEntryCount&amp;gt;&lt;/code&gt;为0，&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;QualitySegmentUrlModifier&amp;gt;&lt;/code&gt;应该被省略。&lt;br /&gt;
 括号中的字段定义在F4V协议中，序号没有前导0。&lt;br /&gt;
 例如：http://www.adobe.com/MyMovie/highSeg1-Frag210&lt;/p&gt;
 
 &lt;h2 id=&quot;f4m文件&quot;&gt;F4M文件&lt;/h2&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;manifest&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://ns.adobe.com/f4m/1.0&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;id&amp;gt;&lt;/span&gt;stream1.smil&lt;span class=&quot;nt&quot;&gt;&amp;lt;/id&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;mimeType&amp;gt;&lt;/span&gt;video/mp4&lt;span class=&quot;nt&quot;&gt;&amp;lt;/mimeType&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;streamType&amp;gt;&lt;/span&gt;live&lt;span class=&quot;nt&quot;&gt;&amp;lt;/streamType&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;deliveryType&amp;gt;&lt;/span&gt;streaming&lt;span class=&quot;nt&quot;&gt;&amp;lt;/deliveryType&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;bootstrapInfo&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;b1&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;profile=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;named&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;url=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;p1.abst&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;media&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bootstrapInfoId=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;b1&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;960&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;540&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bitrate=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;830&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;url=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;m1.abst/&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;metadata&amp;gt;&lt;/span&gt;...&lt;span class=&quot;nt&quot;&gt;&amp;lt;/metadata&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/media&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;bootstrapInfo&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;b2&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;profile=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;named&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;url=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;p2.abst&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;media&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bootstrapInfoId=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;b2&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;721&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;406&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bitrate=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;488&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;url=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;m2.abst/&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;metadata&amp;gt;&lt;/span&gt;...&lt;span class=&quot;nt&quot;&gt;&amp;lt;/metadata&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/media&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;bootstrapInfo&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;b3&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;profile=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;named&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;url=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;p3.abst&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;media&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bootstrapInfoId=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;b3&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1024&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;576&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bitrate=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1464&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;url=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;m3.abst/&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;metadata&amp;gt;&lt;/span&gt;...&lt;span class=&quot;nt&quot;&gt;&amp;lt;/metadata&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/media&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;bootstrapInfo&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;b4&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;profile=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;named&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;url=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;p4.abst&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;media&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bootstrapInfoId=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;b4&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1280&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;720&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bitrate=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1953&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;url=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;m4.abst/&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;metadata&amp;gt;&lt;/span&gt;...&lt;span class=&quot;nt&quot;&gt;&amp;lt;/metadata&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/media&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/manifest&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;div align=&quot;center&quot;&gt;f4m文件示例&lt;/div&gt;
+
 &lt;p&gt;Flash Media Manifest，表示一个媒体内容，比如一个电视频道的网络直播，f4m中记录着内容相同但类型不同的视频流，比如不同码率的视频流，播放器可以根据当前的网络状况选择一路视频流进行播放，当网络环境波动时播放器可以切换码率（码率自适应）。f4m只在播放时请求一次。f4m中有两个重要的标签：&lt;br /&gt;
 &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;media&amp;gt;&lt;/code&gt;: 表示一个视频流信息，包含该视频流宽、高、比特率及url等信息&lt;br /&gt;
 &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;bootstrapInfo&amp;gt;&lt;/code&gt;: 视频流的播放信息，包含abst文件的地址或者abst信息&lt;/p&gt;
@@ -115,7 +142,9 @@ SegmentRunEntryTable[1].FragmentsPerSegment = 2&lt;br /&gt;
 &lt;div align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/img/f4v-to-f4f.png&quot; width=&quot;400&quot; height=&quot;200&quot; /&gt;
 &lt;/div&gt;
-&lt;p&gt;f4f是f4v文件的切片，包含4个box：afra、abst、moof、mdat（ps: 实际应用中可能只有mdat部分）。&lt;/p&gt;
+
+&lt;p&gt;f4f是f4v文件的切片，包含4个box：afra、abst、moof、mdat。&lt;/p&gt;
+
 &lt;div align=&quot;center&quot;&gt;
 &lt;img src=&quot;/assets/img/f4f.png&quot; width=&quot;400&quot; height=&quot;200&quot; /&gt;
 &lt;/div&gt;
@@ -123,8 +152,8 @@ SegmentRunEntryTable[1].FragmentsPerSegment = 2&lt;br /&gt;
 afra：用于时移，其中记录了帧的pts和dataOffset等信息，通过pts和dataOffset这两个数据可以算出某个时间的帧在数据的哪个位置&lt;br /&gt;
 abst：f4f中的abst和之前所说的abst不同。f4f中的abst记录当前abst文件与前一个abst文件的差异&lt;br /&gt;
 moof：类似与moov，记录每个帧的dts、cts、位置等信息&lt;br /&gt;
-mdat：音频帧和视频帧数据&lt;/p&gt;
-&lt;p style=&quot;color:red&quot;&gt;PS: 实际应用中可以只包含mdat部分&lt;/p&gt;
+mdat：音频帧和视频帧数据&lt;br /&gt;
+&lt;strong&gt;PS: 实际应用中可以只包含mdat部分&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;mdat&quot;&gt;mdat&lt;/h3&gt;
 &lt;div align=&quot;center&quot;&gt;
