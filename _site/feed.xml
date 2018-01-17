@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-01-16T12:34:57+08:00</updated><id>http://localhost:4000/</id><title type="html">Tyrese</title><subtitle>好奇心驱动学习</subtitle><author><name>tyrese yang</name></author><entry><title type="html">HDS协议介绍</title><link href="http://localhost:4000/specification/hds.html" rel="alternate" type="text/html" title="HDS协议介绍" /><published>2018-01-15T00:00:00+08:00</published><updated>2018-01-15T00:00:00+08:00</updated><id>http://localhost:4000/specification/hds</id><content type="html" xml:base="http://localhost:4000/specification/hds.html">&lt;h2 id=&quot;hds简介&quot;&gt;HDS简介&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-01-18T00:27:29+08:00</updated><id>http://localhost:4000/</id><title type="html">Tyrese</title><subtitle>好奇心驱动学习</subtitle><author><name>tyrese yang</name></author><entry><title type="html">HDS协议介绍</title><link href="http://localhost:4000/specification/hds.html" rel="alternate" type="text/html" title="HDS协议介绍" /><published>2018-01-15T00:00:00+08:00</published><updated>2018-01-15T00:00:00+08:00</updated><id>http://localhost:4000/specification/hds</id><content type="html" xml:base="http://localhost:4000/specification/hds.html">&lt;h2 id=&quot;hds简介&quot;&gt;HDS简介&lt;/h2&gt;
 &lt;p&gt;HTTP Dynamic Streaming，是Adobe公司设计的协议，分为On-demand模式(点播）和live模式（直播）。Live模式与苹果公司HLS协议的直播类似，都是将直播流切片进行传输。&lt;/p&gt;
 
 &lt;h2 id=&quot;hds直播流&quot;&gt;HDS直播流&lt;/h2&gt;
@@ -15,12 +15,18 @@
 HDS播放视频流是通过短连接的方式，那么是如何实现源源不断地视频传输呢？答案就是切片列表和视频切片(f4f)，服务端会随着直播的进行不断将直播流切成一个个短时间的视频片段，这些片段（fragment)被叫做f4f文件(Fragmented F4V file)，这些片段能够独立播放，播放器通过不断请求视频片段和播放视频片段来实现直播的效果，播放器需要知道这些片段的名字才能知道发送一个什么样的URL来请求这些片，这些片的名字就来源于一个叫bootstrapInfo（abst）的列表中，abst会随着直播进行一直被服务器刷新，每当服务器切出新的视频片就将视频片的序号和时间戳等信息添加到列表中，播放器拿到序号后就可以去请求视频片段啦，因此，播放器需要不停去请求abst来更新列表项。协议文档中强调播放器应该拿比较新的视频片来播放，也就是接近列表末尾部分序号比较大的片。&lt;/p&gt;
 
 &lt;h2 id=&quot;视频切片url构造&quot;&gt;视频切片URL构造&lt;/h2&gt;
-&lt;p&gt;每个视频切片（fragment）都有一个独一无二的url，url的构造如下：&lt;br /&gt;
+&lt;p&gt;&lt;del&gt;每个视频切片（fragment）都有一个独一无二的url，url的构造如下：&lt;br /&gt;
 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://&amp;lt;ServerBaseUrl&amp;gt;/&amp;lt;MovieIdentifier&amp;gt;&amp;lt;QualitySegmentUrlModifier&amp;gt;Seg&amp;lt;SegmentNumber&amp;gt;-Frag&amp;lt;FragmentNumber&amp;gt;&lt;/code&gt;&lt;br /&gt;
 如果&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;ServerEntryCount&amp;gt;&lt;/code&gt;为0，&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;ServerBaseUrl&amp;gt;&lt;/code&gt;和末尾的斜杆应该被省略。
 如果&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;QualityEntryCount&amp;gt;&lt;/code&gt;为0，&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;QualitySegmentUrlModifier&amp;gt;&lt;/code&gt;应该被省略。&lt;br /&gt;
 括号中的字段定义在F4V协议中，序号没有前导0。&lt;br /&gt;
-例如：http://www.adobe.com/MyMovie/highSeg1-Frag210&lt;/p&gt;
+例如：http://www.adobe.com/MyMovie/highSeg1-Frag210&lt;/del&gt;&lt;/p&gt;
+
+&lt;p&gt;Abst文件URL： &lt;code class=&quot;highlighter-rouge&quot;&gt;http://&amp;lt;ServerBaseUrl&amp;gt;/[abstURL]&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;切片URL： &lt;code class=&quot;highlighter-rouge&quot;&gt;http://&amp;lt;ServerBaseUrl&amp;gt;/[mediaURL]Seg&amp;lt;SegmentNumber&amp;gt;-Frag&amp;lt;FragmentNumber&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;“&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&amp;gt;&lt;/code&gt;”中的值定义在f4v中，“&lt;code class=&quot;highlighter-rouge&quot;&gt;[abstURL]&lt;/code&gt;”是f4m中abst标签的url属性值， “&lt;code class=&quot;highlighter-rouge&quot;&gt;[mediaURL]&lt;/code&gt;”是f4m中media标签的url属性值。如果&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;ServerEntryCount&amp;gt;&lt;/code&gt;为0，&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;ServerBaseUrl&amp;gt;&lt;/code&gt;和末尾的斜杆应该被省略，使用f4m所在地址(路径不包括f4m文件名)作为ServerBaseUrl。&lt;/p&gt;
 
 &lt;h2 id=&quot;f4m文件&quot;&gt;F4M文件&lt;/h2&gt;
 
