@@ -2,7 +2,7 @@
 layout: post
 title: "指数哥伦布编码"
 categories: LiveStream
-tags: [documentation, h264]
+tags: [h264, codec]
 ---
 在H.264文档中，用到了很多类似C语言的描述，但是里面的数据类型并不是C语言中的类型，u(n)表示n位的无符号整型，i(n)表示n位有符号整型，ue(v)指的是指数哥伦布编码，te(v)、se(v)、me(v)则是指数哥伦布编码的变种（见ISO/IEC-14496-10 9.1）。所以要读懂H264的语法先要掌握这些数据类型。  
 指数哥伦布编码（exponential-Golomb code）是指数形式的哥伦布编码，目的在于将数据的占用的位数根据数值的大小来编码，大的数值编码后的位数多，小的数值编码后的位数少。  
