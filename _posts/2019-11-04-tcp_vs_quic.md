@@ -52,6 +52,6 @@ TCP允许让接收端丢弃已经接收到的包，主要是为了减轻服务�
 用TCP的时间戳选项计算RTT会包含接收端接收到数据与发送出响应的这段时间（ack delay），这段时间只是接收端内部处理耗时，并不是链路上的耗时。QUIC会将这部分时间排除掉，得到更精确的链路耗时。
 
 参考：
-https://mp.weixin.qq.com/s/vpz6bp3PT1IDzZervyOfqw
-https://coolshell.cn/articles/11564.html
-https://quicwg.org/base-drafts/draft-ietf-quic-recovery.html
+> https://mp.weixin.qq.com/s/vpz6bp3PT1IDzZervyOfqw  
+> https://coolshell.cn/articles/11564.html  
+> https://quicwg.org/base-drafts/draft-ietf-quic-recovery.html  
