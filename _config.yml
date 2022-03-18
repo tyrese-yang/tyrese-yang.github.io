@@ -7,9 +7,9 @@
 title: YXF Note
 subtitle:
 description:
-author: YXF
+author:
 # Support language: de, en, fr-FR, id, ja, ko, pt-BR, pt, ru, zh-Hans, zh-hk, zh-tw
-language: en
+language: zh-Hans
 date_format: '%Y-%m-%d'
 
 # URL
@@ -117,9 +117,9 @@ index_with_subtitle: false
 # When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -> archives)
 menu:
   home: /
-  categories: /categories/
+  # categories: /categories/
   archives: /archives/
-  tags: /tags/
+  # tags: /tags/
   about: /about/
   #sitemap: /sitemap.xml
   #commonweal: /404.html
@@ -150,9 +150,9 @@ menu_icons:
 # ---------------------------------------------------------------
 
 # Schemes
-#scheme: Muse
+scheme: Muse
 #scheme: Mist
-scheme: Pisces
+#scheme: Pisces
 
 
 # ---------------------------------------------------------------
@@ -324,7 +324,7 @@ post_wordcount:
 #wechat_subscriber:
   #enabled: true
   #qcode: /path/to/your/wechatqcode ex. /uploads/wechat-qcode.jpg
-description: 好奇心驱动学习
+description: 保持好奇
 
 # Declare license on posts
 post_copyright:
@@ -372,7 +372,7 @@ han: false
 #swiftype_key:
 
 # Baidu Analytics ID
-#baidu_analytics:
+baidu_analytics: a79dfba60a3fb51e76c2f318a4b1fa73
 
 # Duoshuo ShortName
 #duoshuo_shortname:
