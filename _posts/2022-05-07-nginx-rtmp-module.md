@@ -3,7 +3,7 @@ layout: post
 title: "nginx-rtmp-module的子模块开发"
 description:
 categories: LiveStream
-tags: [live]
+tags: [nginx, live]
 photos:
 description:
 ---
@@ -134,19 +134,19 @@ relay模块的这个函数，在处理完之后再调用next_play进入下一阶
 | ngx_rtmp_connect | 处理rtmp connect消息 |
 | ngx_rtmp_disconnect | 与NGX_RTMP_DISCONNECT一样 |
 | ngx_rtmp_create_stream | 处理rtmp create stream消息 |
-| ngx_rtmp_close_stream |  |
-| ngx_rtmp_delete_stream |  |
-| ngx_rtmp_publish |  |
-| ngx_rtmp_play |  |
-| ngx_rtmp_seek |  |
-| ngx_rtmp_pause |  |
+| ngx_rtmp_close_stream | 处理close消息，在推流或拉流结束触发 |
+| ngx_rtmp_delete_stream | 处理delete消息，在推流或者拉流结束触发 |
+| ngx_rtmp_publish | 处理publish消息，推流开始触发 |
+| ngx_rtmp_play | 处理play消息，拉流开始触发 |
+| ngx_rtmp_seek | seek消息，直播中几乎没有使用，时移时触发 |
+| ngx_rtmp_pause | 处理pause消息，暂停时触发，几乎没用 |
 
 ### rtmp用户消息处理
 
 | 阶段 | 说明 |
 | --- | --- |
-| ngx_rtmp_stream_begin |  |
-| ngx_rtmp_stream_eof |  |
-| ngx_rtmp_stream_dry |  |
-| ngx_rtmp_recorded |  |
-| ngx_rtmp_set_buflen |  |
+| ngx_rtmp_stream_begin | 流开始 |
+| ngx_rtmp_stream_eof | 流结束 |
+| ngx_rtmp_stream_dry | 没有流数据 |
+| ngx_rtmp_recorded | 告知客户顿是录制流 |
+| ngx_rtmp_set_buflen | 设置服务端缓存缓存时长 |
