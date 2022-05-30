@@ -11,7 +11,7 @@ description:
 nginx-stream-proxy模块可以在nginx实现tcp、udp、UNIX-domain sockets流量的代理功能。在分析模块之前先复习下epoll
 
 ## epoll
-epoll是linux中IO多路复用的一种机制，nginx借助epoll和事件驱动模型实现了高并发，当epoll检测到IO事件发生时通知nginx处理，nginx读取或写入IO时会一次调用各个模块的相关阶段的处理函数进行处理。
+epoll是linux中IO多路复用的一种机制，nginx借助epoll和事件驱动模型实现了高并发，当epoll检测到IO事件发生时通知nginx处理，nginx读取或写入IO时会一次调用各个模块的相关阶段的处理函数进行处理。  
 epoll有两种工作模式LT（level trigger）和ET（edge trigger），对应电路中水平触发和边缘触发两种模式。 
 LT：当epoll_wait检测到描述符事件发生并将此事件通知应用程序处理，应用程序可以不立即处理该事件。下次调用epoll_wait时，会再次通知此事件。  
 ET：epoll_wait触发后如果没有及时处理不会继续通知，所以用ET模式需要及时处理IO事件  
@@ -29,8 +29,9 @@ from_upstream: 是否来自上游的数据
 do_write: 是否为写事件
 ```
 from_upstream表示是否为“上游”给的数据，这个上游比较有意思，nginx作为proxy服务器，维护了client到nginx和nginx到后端server两段连接，如果是client到nginx这段，当连接**可写**时from_upstream为1表示上游数据到来，数据从nginx写到client；如果是nginx到server这段，当连接**可读**时from_upstream为1，数据从server写到nginx。
-nginx前后两段的连接使用的都是同一个session，client到nginx（下游）连接是`s->connection`，nginx到server（上游）连接是`s->upstream`。这个函数里有两个变量`src`和`dst`，这两个代表两个连接，src是读取数据的连接，dst是发送数据的目的连接，从src读取数据再写入dst就实现了proxy的功能。如果from_upstream参数置位，那么src就是s->upstream->peer.connection，dst就是c->connection；相反from_upstream为0时，src = c->connection，dst = s->upstream->peer.connection。使用stream proxy时可以把nginx看做数据的搬运工，从一个连接产生的数据搬运到另一个连接，前面提到nginx使用的是ET工作模式的epoll，所以需要及时处理数据，如果没法及时处理数据也需要设法重新触发读取或写入操作，这里nginx使用了两个buffer来存储从连接中读取的数据（因为传输是双向的，所以需要两个）。
+nginx前后两段的连接使用的都是同一个session，client到nginx（下游）连接是`s->connection`，nginx到server（上游）连接是`s->upstream`。这个函数里有两个变量`src`和`dst`，这两个代表两个连接，src是读取数据的连接，dst是发送数据的目的连接，从src读取数据再写入dst就实现了proxy的功能。如果from_upstream参数置位，那么src就是s->upstream->peer.connection，dst就是c->connection；相反from_upstream为0时，src = c->connection，dst = s->upstream->peer.connection。使用stream proxy时可以把nginx看做数据的搬运工，从一个连接产生的数据搬运到另一个连接，前面提到nginx使用的是ET工作模式的epoll，所以需要及时处理数据，如果没法及时处理数据也需要设法重新触发读取或写入操作，这里nginx使用了两个buffer来存储从连接中读取的数据（因为传输是双向的，所以需要两个）。  
 
+下面从nginx源码中抄出来的数据转发相关的函数，加了一些自己理解的注释：
 {% highlight c %}
 static void
 ngx_stream_proxy_process(ngx_stream_session_t *s, ngx_uint_t from_upstream,
