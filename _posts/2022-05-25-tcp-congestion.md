@@ -42,6 +42,11 @@ description:
 前面提到的这些是TCP拥塞控制的标准实现，不同的拥塞控制算法可能会不一样，由于拥塞控制在互联网上的研究很多，在过去的几十年里出现了许多的拥塞控制算法。拥塞控制算法重点在于不同场景下权衡不同指标，用于评估拥塞控制算法的主要指标有：吞吐量、延迟、丢包率、公平性和鲁棒性。到目前为止，TCP的拥塞控制算法可以分为三类：（1）以丢包作为拥塞依据的算法（2）测量RTT，以延迟作为拥塞依据的算法（3）丢包和延迟同时参考的算法；下图列举了这几类的拥塞控制算法：
 <img src="/assets/img/tcp-cc.png"  width="500" height="250" />
 
+## TCP的公平性
+在网络传输中往往是多个TCP连接共用一个链路带宽，有些拥塞控制算法会比其他算法争抢到更多的共享带宽，因此确保连接的公平性也是TCP拥塞控制算法需要实现的重要特性。  
+一般来说，基于丢包的拥塞控制（比如Reno）相比于基于延迟的拥塞控制算法（比如Vegas）更有竞争力，在一条链路上同时存在基于丢包和基于延时的拥塞控制算法时不能公平地分享带宽，因为基于丢包的算法直到出现丢包才会降低速率，而基于延时的算法在丢包出现之前就降低了发送速率，所以基于丢包的算法能够占据更多的带宽。互联网上主流的算法（比如CUBIC和BBR）也有公平性的问题，在链路缓冲比较小的情况下BBR能够比CUBIC获得更多的带宽，相反在链路缓冲比较大时CUBIC更具优势[3]。
+
 ## 参考
-> https://encyclopedia.pub/entry/12206  
-> https://coolshell.cn/articles/11609.html  
+1. https://encyclopedia.pub/entry/12206  
+2. https://coolshell.cn/articles/11609.html 
+3. Hock, M.; Bless, R.; Zitterbart, M. Experimental Evaluation of BBR Congestion Control. In Proceedings of the IEEE 25th International Conference on Network Protocols (ICNP), Toronto, ON, Canada, 10–13 October 2017. 
