@@ -6,7 +6,7 @@
 # Site
 title: YXF Note
 subtitle:
-description:
+description: 保持好奇
 author:
 # Support language: de, en, fr-FR, id, ja, ko, pt-BR, pt, ru, zh-Hans, zh-hk, zh-tw
 language: zh-Hans
@@ -324,7 +324,7 @@ post_wordcount:
 #wechat_subscriber:
   #enabled: true
   #qcode: /path/to/your/wechatqcode ex. /uploads/wechat-qcode.jpg
-description: 保持好奇
+# description: 保持好奇
 
 # Declare license on posts
 post_copyright:
