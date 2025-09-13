@@ -1,3 +1,4 @@
 ---
 BUNDLE_PATH: "vendor/bundle"
 BUNDLE_DISABLE_SHARED_GEMS: "true"
+BUNDLE_MIRROR__HTTPS://RUBYGEMS__ORG/: "https://gems.ruby-china.com"
